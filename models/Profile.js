@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-// Create Profile Schema
-
+// Create Schema
 const ProfileSchema = new Schema({
   user: {
-    type: Schema.Types.ObjectId
+    type: Schema.Types.ObjectId,
+    ref: 'users'
   },
   handle: {
     type: String,
@@ -53,12 +53,11 @@ const ProfileSchema = new Schema({
         required: true
       },
       to: {
-        type: Date,
-        required: true
+        type: Date
       },
       current: {
         type: Boolean,
-        required: true
+        default: false
       },
       description: {
         type: String
@@ -84,12 +83,11 @@ const ProfileSchema = new Schema({
         required: true
       },
       to: {
-        type: Date,
-        required: true
+        type: Date
       },
       current: {
         type: Boolean,
-        required: true
+        default: false
       },
       description: {
         type: String
@@ -111,12 +109,12 @@ const ProfileSchema = new Schema({
     },
     instagram: {
       type: String
-    },
-    date: {
-      type: Date,
-      default: Date.now
     }
+  },
+  date: {
+    type: Date,
+    default: Date.now
   }
 });
 
-module.exports = Profile = mongoose.Schema('profile', ProfileSchema);
+module.exports = Profile = mongoose.model('profile', ProfileSchema);
