@@ -1,29 +1,34 @@
 // required packages
-const express = require("express");
-const mongoose = require("mongoose");
+const express = require('express');
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
 
 //Route files
-const users = require("./routes/api/users");
-const profile = require("./routes/api/profile");
-const posts = require("./routes/api/posts");
+const users = require('./routes/api/users');
+const profile = require('./routes/api/profile');
+const posts = require('./routes/api/posts');
 
 const app = express();
 
+// body parser middleware
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
 //db config
-const db = require("./config/keys").mogoURI;
+const db = require('./config/keys').mogoURI;
 
 // connect  to mogoDB
 mongoose
   .connect(db)
-  .then(() => console.log("MongoDB Connected"))
+  .then(() => console.log('MongoDB Connected'))
   .catch(err => console.log(err));
 
-app.get("/", (req, res) => res.send("hello"));
+app.get('/', (req, res) => res.send('hello'));
 
 // Use Routes
-app.use("/api/users", users);
-app.use("/api/profile", profile);
-app.use("/api/posts", posts);
+app.use('/api/users', users);
+app.use('/api/profile', profile);
+app.use('/api/posts', posts);
 
 const port = process.env.PORT || 5000;
 
